@@ -1,0 +1,74 @@
+<form (ngSubmit)="onSubmit()">
+    <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        placeholder="Prénom"
+        [(ngModel)]="thirdParty.firstName"
+        required
+    />
+
+    <input
+        type="text"
+        id="lastName"
+        name="lastName"
+        placeholder="Nom"
+        [(ngModel)]="thirdParty.lastName"
+        required
+    />
+    <div class="birth-date-block">
+        Date de naissance :
+        <input
+            type="date"
+            id="birthDate"
+            name="birthDate"
+            [(ngModel)]="thirdParty.birthDate"
+            required
+        />
+    </div>
+
+    <div class="address-block">
+        <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Adresse"
+            [(ngModel)]="thirdParty.address"
+            required
+        />
+        <div class="postal-code-city">
+            <input
+                type="text"
+                id="postalCode"
+                name="postalCode"
+                placeholder="CP"
+                [(ngModel)]="thirdParty.postalCode"
+                required
+                maxlength="5"
+            />
+
+            <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="Ville"
+                [(ngModel)]="thirdParty.city"
+                required
+            />
+        </div>
+    </div>
+    <div class="actions">
+        @if (new) {
+        <button type="button" (click)="close.emit()">
+            <img src="/images/icons/close.svg" alt="Fermer" />
+        </button>
+        } @else {
+        <button type="button" (click)="onDelete()">
+            <img src="/images/icons/delete.svg" alt="Supprimer" />
+        </button>
+        }
+        <button type="submit">
+            <img src="/images/icons/save.svg" alt="Enregistrer" />
+        </button>
+    </div>
+</form>

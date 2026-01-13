@@ -1,0 +1,6 @@
+<h2><ng-content /></h2>
+@if (canBeDeleted) {
+<button type="button" (click)="delete.emit()">
+    <img src="/images/icons/delete.svg" alt="Supprimer" />
+</button>
+}

@@ -1,0 +1,13 @@
+<dialog #dialog>
+    <h2>Choisir un conducteur</h2>
+    <ul>
+        @if (drivers$ | async; as drivers) { @for (driver of drivers; track
+        driver) {
+        <li>
+            <button (click)="select(driver)">
+                {{ driver.firstName + " " + driver.lastName }}
+            </button>
+        </li>
+        } }
+    </ul>
+</dialog>

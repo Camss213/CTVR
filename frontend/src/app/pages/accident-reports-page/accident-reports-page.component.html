@@ -1,0 +1,10 @@
+@if (reports$ | async; as reports) {
+<app-accident-report-preview
+    *ngFor="let report of reports"
+    [report]="report"
+    (reload)="reload()"
+/>
+} @else {
+<app-card-skeleton *ngFor="let _ of [].constructor(5)" />
+}
+<app-add-card link="/accident-reports/new" title="Nouvel accident" />

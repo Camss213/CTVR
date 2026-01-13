@@ -1,0 +1,75 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="header">
+        <div class="number">
+            <label for="bus-number">Numéro :</label>
+            <input
+                class="number-bus"
+                id="bus-number"
+                type="number"
+                step="1"
+                name="number"
+                placeholder="Numéro"
+                required
+                [(ngModel)]="aBus.number"
+                min="1"
+            />
+        </div>
+        <select name="state" [(ngModel)]="aBus.state">
+            <option value="IN_SERVICE">En service</option>
+            <option value="UNDER_REPAIR">En réparation</option>
+        </select>
+    </div>
+
+    <div class="body">
+        <label class="model">
+            Modèle
+            <input
+                type="text"
+                name="model"
+                placeholder="Iveco 123"
+                required
+                [(ngModel)]="aBus.model"
+            />
+        </label>
+
+        <label class="registration">
+            Immatriculation
+            <input
+                type="text"
+                name="registration"
+                maxlength="9"
+                placeholder="XX-123-XX"
+                required
+                [(ngModel)]="aBus.registration"
+            />
+        </label>
+    </div>
+
+    <div class="footer">
+        <label>
+            Mise en service
+            <input
+                class="date"
+                type="date"
+                name="implementationDate"
+                required
+                [(ngModel)]="aBus.implementationDate"
+            />
+        </label>
+
+        <div class="actions">
+            @if (new) {
+            <button type="button" (click)="close.emit()">
+                <img src="/images/icons/close.svg" alt="Fermer" />
+            </button>
+            } @else {
+            <button type="button" (click)="onDelete()">
+                <img src="/images/icons/delete.svg" alt="Supprimer" />
+            </button>
+            }
+            <button type="submit">
+                <img src="/images/icons/save.svg" alt="Modifier" />
+            </button>
+        </div>
+    </div>
+</form>

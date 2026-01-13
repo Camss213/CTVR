@@ -1,0 +1,219 @@
+<form (submit)="onSubmit($event)">
+    <section class="header">
+        <div class="first-row">
+            <div class="logo">
+                <img src="/images/logo.svg" alt="Logo CTVR" /> CTVR
+            </div>
+            <div class="title">
+                <h1>
+                    {{ id ? "Devis n° " + id : "Nouveau devis" }}
+                </h1>
+                <input type="date" name="date" id="date" [(value)]="date" />
+            </div>
+        </div>
+        <address>
+            Compagnie des Transports de la Vallée du Rhône<br />
+            12 rue de la Gare<br />
+            07100 Annonay<br />
+            Tél : 04 75 33 00 00<br />
+            E-mail : contact&#64;ctvr.fr
+        </address>
+        <div class="pickers">
+            <button
+                type="button"
+                class="add-button"
+                (click)="accidentPicker.show()"
+            >
+                @if (this.accidentId) { Accident :
+                {{ this.accidentId.year + "#" + this.accidentId.noSeq }}
+                } @else { Lier un accident }
+            </button>
+            <button type="button" class="add-button" (click)="busPicker.show()">
+                @if (this.bus) { Bus :
+                {{ this.bus.number + " - " + this.bus.registration }}
+                } @else { Lier un bus }
+            </button>
+        </div>
+    </section>
+    <section class="content">
+        <button
+            type="button"
+            id="add-row-button"
+            (click)="addRow()"
+            title="Ajouter une ligne"
+        >
+            <img src="/images/icons/add.svg" alt="Add icon" />
+        </button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>PU (HT)</th>
+                    <th>Unité</th>
+                    <th>Quantité</th>
+                    <th>Montant (HT)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (row of rows; track row; let i = $index) {
+                <tr>
+                    <td
+                        contenteditable="plaintext-only"
+                        [textContent]="row.code"
+                        (input)="updateCode($event, row)"
+                        (focus)="onDatalistFocus($event, row, 'code')"
+                        (blur)="onDatalistBlur()"
+                    ></td>
+                    <td
+                        contenteditable="plaintext-only"
+                        [textContent]="row.label"
+                        (input)="updateLabel($event, row)"
+                        (focus)="onDatalistFocus($event, row, 'label')"
+                        (blur)="onDatalistBlur()"
+                    ></td>
+                    <td
+                        contenteditable="plaintext-only"
+                        [textContent]="row.unitPrice.toLocaleString()"
+                        (input)="updatePrice($event, row)"
+                    ></td>
+                    <td>
+                        <select
+                            name="unit"
+                            id="unit"
+                            (input)="updateType($event, row)"
+                        >
+                            <option
+                                value="WORKFORCE"
+                                [selected]="row.type === 'WORKFORCE'"
+                            >
+                                heure
+                            </option>
+                            <option
+                                value="SUPPLY"
+                                [selected]="row.type === 'SUPPLY'"
+                            ></option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="quantity-cell">
+                            <button
+                                type="button"
+                                class="quantity-button"
+                                (click)="decreaseQuantity(i)"
+                            >
+                                <img
+                                    src="/images/icons/minus.svg"
+                                    alt="Minus icon"
+                                />
+                            </button>
+                            <span
+                                contenteditable="plaintext-only"
+                                class="quantity-value"
+                                [textContent]="row.quantity.toLocaleString()"
+                                (input)="updateQuantity($event, row)"
+                            ></span>
+                            <button
+                                type="button"
+                                class="quantity-button"
+                                (click)="increaseQuantity(row)"
+                            >
+                                <img
+                                    src="/images/icons/add.svg"
+                                    alt="Add icon"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="quantity-button"
+                                (click)="deleteRow(i)"
+                            >
+                                <img
+                                    src="/images/icons/delete.svg"
+                                    alt="Delete icon"
+                                />
+                            </button>
+                        </div>
+                    </td>
+                    <td>
+                        {{ (row.quantity * row.unitPrice).toLocaleString() }}
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        <ul
+            class="datalist"
+            [style]="
+                datalistProps
+                    ? (datalistProps.reversed
+                          ? 'top: 0;flex-direction: column'
+                          : 'bottom: 100%;flex-direction: column-reverse') +
+                      ';transform: translate(' +
+                      datalistProps.position.x +
+                      'px, ' +
+                      datalistProps.position.y +
+                      'px)'
+                    : 'bottom: 100%'
+            "
+        >
+            @if (components$ | async; as components) { @for (component of
+            components; track $index) { @if (datalistProps &&
+            (datalistProps.type === 'code' ?
+            component.code.toLowerCase().includes(datalistProps.row.code.toLowerCase())
+            :
+            component.label.toLowerCase().includes(datalistProps.row.label.toLowerCase())))
+            {
+            <li>
+                <button (pointerdown)="onDatalistClick(component)">
+                    {{
+                        datalistProps.type === "label"
+                            ? component.label
+                            : component.code
+                    }}
+                </button>
+            </li>
+            } } }
+        </ul>
+    </section>
+    <section class="footer">
+        <div class="input-container" id="signature">
+            Signature :
+            <div id="signature-input"></div>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Total HT&nbsp;:</th>
+                    <td>{{ getCurrency(withoutTaxTotal) }}</td>
+                </tr>
+                <tr>
+                    <th>TVA&nbsp;:</th>
+                    <td>{{ getCurrency(taxTotal) }}</td>
+                </tr>
+                <tr>
+                    <th>Total TTC&nbsp;:</th>
+                    <td>{{ getCurrency(withTaxTotal) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="bottom">
+        <div></div>
+        <p class="last-row">CTVR - 362 521 879 00034</p>
+        <div class="buttons">
+            @if (id) {
+            <button class="delete" type="button" (click)="remove(id)">
+                <img src="/images/icons/delete.svg" alt="Supprimer" />
+            </button>
+            }
+            <button class="submit" type="submit">
+                <img src="/images/icons/save.svg" alt="Enregistrer" />
+            </button>
+        </div>
+    </section>
+</form>
+
+<app-accident-picker #accidentPicker (selected)="this.accidentId = $event" />
+<app-bus-picker #busPicker (selected)="this.bus = $event" />

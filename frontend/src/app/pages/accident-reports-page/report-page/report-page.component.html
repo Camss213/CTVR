@@ -1,0 +1,233 @@
+<div></div>
+<form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <h1>{{ id ? "Déclaration #" + id.noSeq : "Nouvelle déclaration" }}</h1>
+    <app-header>Informations sur l'accident</app-header>
+    <section class="accident-info">
+        <div class="row">
+            <app-field
+                type="date"
+                formControlName="date"
+                id="date"
+                [required]="true"
+                label="Date :"
+            />
+            <app-field
+                type="time"
+                formControlName="time"
+                id="time"
+                [required]="true"
+                label="Heure :"
+            />
+        </div>
+        <div class="row">
+            <app-field
+                type="text"
+                formControlName="street"
+                id="street"
+                label="Rue :"
+            />
+            <app-field
+                type="select"
+                formControlName="weather"
+                id="weather"
+                label="Météo :"
+                [options]="weatherOptions"
+            />
+        </div>
+        <div class="row">
+            <app-field
+                type="text"
+                formControlName="postalCode"
+                id="postalCode"
+                label="Code Postal :"
+                pattern="[0-9]+"
+                [maxLength]="5"
+            />
+            <app-field
+                type="text"
+                formControlName="city"
+                id="city"
+                label="Ville :"
+            />
+        </div>
+        <div class="row">
+            <app-field
+                type="textarea"
+                formControlName="circumstancesSummary"
+                id="circumstancesSummary"
+                label="Résumé des circonstances :"
+            />
+        </div>
+    </section>
+
+    @for (involve of involves.controls; track involve; let i = $index) {
+    <app-header
+        [canBeDeleted]="!reportForm.disabled"
+        (delete)="involves.removeAt(i); thirdParties.splice(i, 1)"
+    >
+        Tiers #{{ involve.controls.thirdPartyId.value }} -
+        {{ thirdParties[i].firstName }} {{ thirdParties[i].lastName }}
+    </app-header>
+    <section class="third-party-container">
+        <div>
+            <p>
+                Date de naissance :
+                <span class="bubble">
+                    {{ toLocalDate(thirdParties[i].birthDate) }}
+                </span>
+            </p>
+            @if (involve.controls.amountPaid.value) {
+            <p>
+                Argent envoyé :
+                <span class="bubble">{{
+                    getCurrency(involve.controls.amountPaid.value)
+                }}</span>
+            </p>
+            }
+        </div>
+        <div>
+            Adresse :
+            <address>
+                {{ thirdParties[i].address }}<br />
+                {{ thirdParties[i].postalCode }} {{ thirdParties[i].city }}
+            </address>
+        </div>
+    </section>
+    <section [formGroup]="involve">
+        <app-field
+            label="Nature des blessures :"
+            type="text"
+            formControlName="injuriesNature"
+            id="injuriesNature"
+        />
+        <app-field
+            label="Dégâts matériels :"
+            type="text"
+            formControlName="materialDamage"
+            id="materialDamage"
+        />
+    </section>
+    } @if(!reportForm.disabled) {
+    <button type="button" class="add-button" (click)="thirdPartyPicker.show()">
+        Ajouter un tiers
+    </button>
+    } @for (occur of occurs.controls; track occur; let i = $index) {
+    <div [formGroup]="occur">
+        <app-header
+            [canBeDeleted]="!reportForm.disabled"
+            (delete)="occurs.removeAt(i); routes.splice(i, 1)"
+        >
+            Parcours du
+            {{ toLocalDateTime(occur.controls.routeServiceSchedule.value) }}
+        </app-header>
+        <section class="route-container">
+            Bus :
+            <div class="bubble">
+                {{ routes[i].busNumber }} - {{ routes[i].busRegistration }}
+            </div>
+            Conducteur :
+            <div class="bubble">
+                {{ routes[i].driverName }} -
+                {{ routes[i].drivingLicenceNumber }}
+            </div>
+            Ligne :
+            <div
+                class="line-number"
+                [style.background-color]="routes[i].lineColor"
+            >
+                {{ routes[i].lineNumber }}
+            </div>
+        </section>
+
+        <section>
+            <app-field
+                label="Dommages au bus :"
+                type="text"
+                formControlName="busDamages"
+                id="busDamages"
+            />
+            <app-field
+                label="Dommages au conducteur :"
+                type="text"
+                formControlName="driverDamages"
+                id="driverDamages"
+            />
+        </section>
+        <app-header>Signatures</app-header>
+        <section class="signature-section">
+            <div class="signature">
+                <label for="signature-conducteur">Conducteur :</label>
+                <div id="signature-conducteur" class="signature-box"></div>
+            </div>
+            <div class="signature">
+                <label for="signature-controleur">Contrôleur :</label>
+                <div id="signature-controleur" class="signature-box"></div>
+            </div>
+        </section>
+    </div>
+    } @if (!reportForm.disabled && occurs.controls.length < 2) {
+    <button type="button" class="add-button" (click)="routePicker.show()">
+        Lier un parcours
+    </button>
+    } @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    }
+
+    <section class="bottom">
+        @if (!reportForm.disabled) { @if (id) {
+        <button class="delete" type="button" (click)="remove(id)">
+            <img src="/images/icons/delete.svg" alt="Supprimer" />
+        </button>
+        }
+        <button class="submit" type="submit">
+            <img src="/images/icons/save.svg" alt="Enregistrer" />
+        </button>
+        }
+    </section>
+</form>
+<div class="action-buttons-container">
+    @if (id) {
+    <ul class="action-buttons">
+        @if (moneyReceived) {
+        <li class="money-received">
+            Argent reçu :
+            <span class="bubble">{{ getCurrency(moneyReceived) }}</span>
+        </li>
+        } @if (!insuranceTransmissionDate) {
+        <li>
+            <app-action-button
+                iconSrc="send.svg"
+                iconAlt="Send icon"
+                (click)="send(id)"
+            >
+                Transmettre à l'assurance
+            </app-action-button>
+        </li>
+        } @if (!insuranceValidationDate) {
+        <li>
+            <app-action-button
+                iconSrc="check-circle.svg"
+                iconAlt="Validate icon"
+                (click)="validationForm.show(id, thirdParties)"
+            >
+                Validation de l'assurance
+            </app-action-button>
+        </li>
+        } @if (!fileClosingDate) {
+        <li>
+            <app-action-button
+                iconSrc="cancel.svg"
+                iconAlt="Close icon"
+                (click)="close(id)"
+            >
+                Clôturer le dossier
+            </app-action-button>
+        </li>
+        }
+    </ul>
+    }
+</div>
+
+<app-route-picker #routePicker (selected)="linkRoute($event)" />
+<app-third-party-picker #thirdPartyPicker (selected)="linkThirdParty($event)" />
+<app-validation-form #validationForm (sended)="validate($event)" />

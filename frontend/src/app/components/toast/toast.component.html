@@ -1,0 +1,8 @@
+@for (toast of service.toasts; track toast) {
+<div [class]="toast.type">
+    <p>{{ toast.message }}</p>
+    <button type="button" (click)="service.close($index)">
+        <img src="/images/icons/close.svg" alt="Fermer" />
+    </button>
+</div>
+}

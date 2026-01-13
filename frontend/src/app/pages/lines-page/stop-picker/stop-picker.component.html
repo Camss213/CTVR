@@ -1,0 +1,12 @@
+<dialog #dialog>
+    <h2>Choisir un arrêt</h2>
+    <ul>
+        @if (stops$ | async; as stops) { @for (stop of stops; track stop) {
+        <li>
+            <button (click)="select(stop)">
+                {{ stop.name }}
+            </button>
+        </li>
+        } }
+    </ul>
+</dialog>

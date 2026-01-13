@@ -1,0 +1,17 @@
+@if (thirdParties$ | async; as thirdParties) {
+<app-third-party-card
+    *ngFor="let thirdParty of thirdParties"
+    [thirdParty]="thirdParty"
+    (reload)="reload()"
+/>
+} @else {
+<app-card-skeleton *ngFor="let _ of [].constructor(5)" />
+} @if (newThirdParty) {
+<app-third-party-card
+    (reload)="reload()"
+    (close)="newThirdParty = false"
+    [new]="true"
+/>
+} @else {
+<app-add-third-card title="Nouveau tiers" (click)="newThirdParty = true" />
+}

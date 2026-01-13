@@ -1,0 +1,11 @@
+ALTER TABLE users
+    ADD role VARCHAR(20);
+
+ALTER TABLE users
+    ALTER COLUMN role SET NOT NULL;
+
+ALTER TABLE users
+    ALTER COLUMN password SET NOT NULL;
+
+ALTER TABLE users
+    ALTER COLUMN username SET NOT NULL;

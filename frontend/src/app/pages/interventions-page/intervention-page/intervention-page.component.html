@@ -1,0 +1,117 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1>{{ "Intervention N°" + id }}</h1>
+    <app-header>Informations sur l'intervention</app-header>
+    <section class="intervention-info">
+        <div class="row">
+            <app-field
+                type="text"
+                formControlName="accident"
+                id="accident"
+                [required]="true"
+                label="Accident :"
+                list="accidents"
+            />
+            @if (accidentIds$ | async; as accidentIds) {
+            <datalist id="accidents">
+                <option value="Aucun">Aucun</option>
+                @for (id of accidentIds; track id) {
+                <option [value]="id.year + '#' + id.noSeq">
+                    {{ id.year + "#" + id.noSeq }}
+                </option>
+                }
+            </datalist>
+            }
+            <app-field
+                type="text"
+                formControlName="bus"
+                id="bus"
+                [required]="true"
+                label="Bus :"
+                list="buses"
+            />
+            @if (buses$ | async; as buses$) {
+            <datalist id="buses">
+                @for (bus of buses$; track bus) {
+                <option [value]="bus.number + ' - ' + bus.registration">
+                    {{ bus.number + " - " + bus.registration }}
+                </option>
+                }
+            </datalist>
+            }
+        </div>
+        <div class="row">
+            <app-field
+                type="textarea"
+                formControlName="description"
+                id="description"
+                label="Description :"
+                [required]="true"
+            />
+        </div>
+    </section>
+
+    <app-header>Réparations</app-header>
+    <section class="repairs">
+        <div class="row">
+            <div class="link-field">
+                <label for="quote"> Devis : </label>
+                <a id="quote" href="/interventions/{{ id }}/quote">
+                    Consulter ou modifier le devis
+                </a>
+            </div>
+            <!-- <app-field type="text" id="quote" label="Devis :" /> -->
+            <app-field
+                type="date"
+                formControlName="quoteDate"
+                id="quoteDate"
+                [required]="false"
+                label="Date du devis :"
+            />
+        </div>
+
+        <div class="row">
+            <app-field
+                type="date"
+                formControlName="busEntranceDate"
+                id="busEntranceDate"
+                [required]="false"
+                label="Date d'entrée du bus :"
+            />
+            <app-field
+                type="date"
+                formControlName="startRepairDate"
+                id="startRepairDate"
+                [required]="false"
+                label="Date de début des réparations :"
+            />
+            <app-field
+                type="date"
+                formControlName="endRepairDate"
+                id="endRepairDate"
+                [required]="false"
+                label="Date de fin des réparations :"
+            />
+        </div>
+    </section>
+    @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    }
+    <section class="bottom">
+        @if (id) {
+        <button class="delete" type="button" (click)="delete(id)">
+            <img
+                src="/images/icons/delete.svg"
+                alt="Supprimer"
+                title="Supprimer l'intervention"
+            />
+        </button>
+        }
+        <button class="submit" type="submit">
+            <img
+                src="/images/icons/save.svg"
+                alt="Envoyer"
+                title="Enregistrer l'intervention"
+            />
+        </button>
+    </section>
+</form>

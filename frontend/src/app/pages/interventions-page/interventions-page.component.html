@@ -1,0 +1,10 @@
+@if (interventions$ | async; as interventions) {
+<app-intervention-preview
+    *ngFor="let intervention of interventions"
+    [intervention]="intervention"
+    (reload)="reload()"
+/>
+} @else {
+<app-card-skeleton *ngFor="let _ of [].constructor(5)" />
+}
+<app-add-card link="/interventions/new" title="Nouvelle intervention" />

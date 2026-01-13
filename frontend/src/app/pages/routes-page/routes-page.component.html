@@ -1,0 +1,106 @@
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th><div>Ligne</div></th>
+                <th><div>Date</div></th>
+                <th><div>Heure</div></th>
+                <th><div>Conducteur</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (routes$ | async; as routes) {
+            <tr (click)="new()" [class.selected]="selected.bus === null">
+                <td class="add-button" colspan="4">
+                    Ajouter un nouveau parcours
+                </td>
+            </tr>
+            @for (route of routes; track route) {
+            <tr
+                (click)="select(route)"
+                [class.selected]="
+                    route.lineNumber === selected.line?.number &&
+                    route.drivingLicenceNumber ===
+                        selected.driver?.drivingLicenceNumber &&
+                    route.serviceSchedule === selected.serviceSchedule
+                "
+            >
+                <td>{{ route.lineNumber }}</td>
+                <td>{{ getDate(route.serviceSchedule) }}</td>
+                <td>{{ getTime(route.serviceSchedule) }}</td>
+                <td>{{ route.driverName }}</td>
+            </tr>
+            } } @else {
+            <tr>
+                <td colspan="4">Chargement des parcours en cours...</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+<div class="background" [class.opened]="opened" (click)="opened = false">
+    <form (click)="$event.stopPropagation()" (ngSubmit)="onSubmit()">
+        <button type="button" (click)="opened = false" class="close-button">
+            <img src="/images/icons/cancel.svg" alt="Fermer" />
+        </button>
+        <div class="header-card">
+            <button
+                type="button"
+                class="line-number"
+                [style.background-color]="selected.line?.color"
+                (click)="linePicker.show()"
+            >
+                {{ selected.line ? selected.line.number : "Ligne" }}
+            </button>
+            <input
+                class="line-date"
+                type="datetime-local"
+                name="datetime"
+                [(ngModel)]="selected.serviceSchedule"
+            />
+        </div>
+
+        <button type="button" (click)="busPicker.show()" class="line">
+            {{
+                selected.bus
+                    ? selected.bus.number + " - " + selected.bus.registration
+                    : "Sélectionner le bus"
+            }}
+        </button>
+        <button type="button" class="line" (click)="driverPicker.show()">
+            {{
+                selected.driver
+                    ? selected.driver.drivingLicenceNumber +
+                      " - " +
+                      selected.driver.name
+                    : "Sélectionner le conducteur"
+            }}
+        </button>
+
+        <img src="/images/map.svg" alt="map" class="map" />
+
+        <div class="actions">
+            @if (selected.bus) {
+            <button type="button" (click)="delete()">
+                <img src="/images/icons/delete.svg" alt="Supprimer" />
+            </button>
+            }
+            <button type="submit">
+                <img src="/images/icons/save.svg" alt="Enregistrer" />
+            </button>
+        </div>
+    </form>
+</div>
+
+<app-bus-picker #busPicker (selected)="selected.bus = $event" />
+<app-line-picker #linePicker (selected)="selected.line = $event" />
+<app-driver-picker
+    #driverPicker
+    (selected)="
+        selected.driver = {
+            drivingLicenceNumber: $event.drivingLicenceNumber,
+            name: $event.firstName + ' ' + $event.lastName
+        }
+    "
+/>

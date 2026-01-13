@@ -1,0 +1,26 @@
+<a [routerLink]="'/accident-reports/' + report.year + '/' + report.noSeq">
+    <p class="date-time">
+        {{ toDate(report.date + "Z" + report.time) }}
+    </p>
+    @for (route of report.routes; track $index) {
+    <div class="route-infos">
+        <div>
+            Bus N°{{ route.busNumber }} &bull; Ligne
+            <span
+                class="line-number"
+                [style.background-color]="route.lineColor"
+            >
+                {{ route.lineNumber }}
+            </span>
+        </div>
+        <span class="driver-name"> {{ route.driverName }}</span>
+    </div>
+    }
+    <address>
+        {{ report.street }}<br />
+        {{ report.postalCode }} {{ report.city }}
+    </address>
+    <button type="button" class="delete-button" (click)="remove($event)">
+        <img src="/images/icons/delete.svg" alt="Delete Icon" />
+    </button>
+</a>

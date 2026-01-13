@@ -1,0 +1,17 @@
+<li [class.active]="isActive">
+    <a [routerLink]="link">
+        <div class="navElement">
+            <img
+                [src]="'/images/icons/' + iconSrc"
+                [alt]="iconAlt"
+                class="navIcon"
+            />
+            <ng-content />
+        </div>
+        <img
+            src="/images/icons/right-arrow.svg"
+            alt="Right arrow icon"
+            class="arrowIcon"
+        />
+    </a>
+</li>

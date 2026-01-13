@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    /* font-family: Inter; */
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #0a212f;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+button {
+    cursor: pointer;
+}
+
+button,
+input,
+textarea,
+address {
+    font: inherit;
+}

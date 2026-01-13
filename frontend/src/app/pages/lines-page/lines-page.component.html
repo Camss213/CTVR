@@ -1,0 +1,162 @@
+<ul class="line-list">
+    <li class="title">Liste des lignes</li>
+    @if (lines$ | async; as lines) {
+    <li>
+        <button
+            [class.selected]="selected.number === 0"
+            type="button"
+            (click)="new()"
+            class="new"
+        >
+            Créer une nouvelle ligne
+        </button>
+    </li>
+    @for (line of lines; track line) {
+    <li>
+        <button type="button" (click)="select(line)">
+            <div class="number" [style.background-color]="line.color">
+                {{ line.number }}
+            </div>
+            <div
+                class="stops"
+                [class.selected]="line.number === selected.number"
+            >
+                {{ line.firstStopName }}
+                @if (line.firstStopName && line.lastStopName) { - }
+                {{ line.lastStopName }}
+            </div>
+        </button>
+    </li>
+    } } @else {
+    <li>Chargement ...</li>
+    }
+</ul>
+<div class="background" [class.opened]="opened" (click)="opened = false">
+    <form (ngSubmit)="onSubmit()" (click)="$event.stopPropagation()">
+        <button type="button" (click)="opened = false" class="close-button">
+            <img src="/images/icons/close.svg" alt="Fermer" />
+        </button>
+        @if (selected.oldNumber !== 0) {
+        <ul class="stop-list">
+            @if (selected.stops) { @for (stop of selected.stops; track stop; let
+            i = $index) {
+            <li>
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        class="main-color"
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        fill="#0A212F"
+                    />
+                    <circle cx="12" cy="12" r="10" fill="#FBEFEC" />
+                    <circle
+                        class="main-color"
+                        cx="12"
+                        cy="12"
+                        r="6"
+                        fill="#0A212F"
+                    />
+                </svg>
+                <div class="stop-name">
+                    {{ stop.name }}
+                </div>
+                <!-- <button type="button" (click)="upStop(i)">
+                    <img
+                        src="/images/icons/arrow_up.svg"
+                        alt="Déplacer en haut"
+                    />
+                </button>
+                <button type="button" (click)="downStop(i)">
+                    <img
+                        src="/images/icons/arrow_down.svg"
+                        alt="Déplacer en bas"
+                    />
+                </button> -->
+                <button type="button" (click)="deleteStop(stop.name)">
+                    <img src="/images/icons/delete.svg" alt="Ajouter" />
+                </button>
+            </li>
+            }
+            <li>
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        class="main-color"
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        fill="#0A212F"
+                    />
+                    <circle cx="12" cy="12" r="10" fill="#FBEFEC" />
+                    <circle
+                        class="main-color"
+                        cx="12"
+                        cy="12"
+                        r="6"
+                        fill="#0A212F"
+                    />
+                </svg>
+                <button
+                    type="button"
+                    class="new-button"
+                    (click)="stopPicker.show()"
+                >
+                    Ajouter un arrêt
+                </button>
+            </li>
+            } @else {
+            <li>Chargement ...</li>
+            }
+        </ul>
+        }
+        <div class="side">
+            <input
+                type="number"
+                name="number"
+                class="number-input"
+                [style.background-color]="selected.color"
+                step="1"
+                [(ngModel)]="selected.number"
+                min="1"
+            />
+            <input
+                type="color"
+                name="color"
+                class="color-input"
+                [(ngModel)]="selected.color"
+            />
+            @if (selected.stops) {
+            <div class="stops-number">
+                <span>
+                    {{ selected.stops.length }}
+                </span>
+                arrêts
+            </div>
+            }
+        </div>
+        <div class="actions">
+            @if (selected.oldNumber !== 0) {
+            <button type="button" (click)="onDelete()">
+                <img src="/images/icons/delete.svg" alt="Supprimer" />
+            </button>
+            }
+            <button type="submit">
+                <img src="/images/icons/save.svg" alt="Enregistrer" />
+            </button>
+        </div>
+    </form>
+</div>
+
+<app-stop-picker #stopPicker (selected)="linkStop($event)" />

@@ -1,0 +1,49 @@
+<main>
+    <div id="container">
+        <div id="left-page">
+            <img src="/images/logo.svg" alt="logo" class="logo" />
+        </div>
+        <div id="right-page">
+            <h1>Connexion</h1>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div *ngIf="errorMessage" class="error">
+                    {{ errorMessage }}
+                </div>
+                <label for="username">
+                    <img src="/images/icons/user.svg" alt="logo" class="icon" />
+                    <input
+                        type="text"
+                        required
+                        name="username"
+                        formControlName="username"
+                        id="username"
+                        placeholder="Nom d'utilisateur"
+                    />
+                </label>
+                <label for="password">
+                    <img
+                        src="/images/icons/password.svg"
+                        alt="logo"
+                        class="icon"
+                    />
+                    <input
+                        type="password"
+                        required
+                        name="password"
+                        formControlName="password"
+                        id="password"
+                        placeholder="Mot de passe"
+                    />
+                </label>
+                <button
+                    type="submit"
+                    name="submit"
+                    id="submit-button"
+                    [disabled]="loginForm.invalid || isLoading"
+                >
+                    SE CONNECTER
+                </button>
+            </form>
+        </div>
+    </div>
+</main>

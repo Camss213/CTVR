@@ -1,0 +1,9 @@
+@if (buses$ | async; as buses) {
+<app-bus-card *ngFor="let bus of buses" [bus]="bus" (reload)="reload()" /> }
+@else {
+<app-card-skeleton *ngFor="let _ of [].constructor(5)" />
+} @if (newBus) {
+<app-bus-card (reload)="reload()" (close)="newBus = false" [new]="true" />
+} @else {
+<app-add-bus-card title="Nouveau bus" (click)="newBus = true" />
+}

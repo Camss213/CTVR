@@ -1,0 +1,17 @@
+<dialog #dialog>
+    <h2>Choisir un parcours</h2>
+    <ul>
+        @if (routes$ | async; as routes) { @for (route of routes; track route) {
+        <li>
+            <button (click)="select(route)">
+                {{ toLocalDate(route.serviceSchedule) }} •
+                {{ route.driverName }} • {{ route.busNumber }} -
+                {{ route.busRegistration }} •
+                <span [style.background-color]="route.lineColor">
+                    {{ route.lineNumber }}
+                </span>
+            </button>
+        </li>
+        } }
+    </ul>
+</dialog>

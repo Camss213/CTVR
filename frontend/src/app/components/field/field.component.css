@@ -1,0 +1,35 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+:host:has(textarea) {
+    width: 100%;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input,
+textarea,
+select {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #c0bebe;
+    font-size: 14px;
+}
+
+textarea {
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 1px solid #ff892f;
+}

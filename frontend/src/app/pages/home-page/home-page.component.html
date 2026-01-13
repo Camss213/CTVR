@@ -1,0 +1,35 @@
+<h1>Bienvenue sur le site de gestion de la CTVR</h1>
+@if (stats$ | async; as stats) {
+<div class="card">
+    <p>
+        Temps de réparation moyen :
+        {{ getDurationFromDays(stats.averageReparationTime) }}
+    </p>
+    <p>
+        Temps de vie d'un bus moyen :
+        {{ getDurationFromYears(stats.averageBusLifeTime) }}
+    </p>
+    <p>
+        Ancienneté moyenne des conducteurs :
+        {{ getDurationFromYears(stats.averageSeniorityDriver) }}
+    </p>
+</div>
+<div class="graph-container">
+    <div class="graph">
+        <canvas
+            baseChart
+            [data]="getFurnitureCostChartData(stats)"
+            type="bar"
+        ></canvas>
+    </div>
+
+    <div class="graph">
+        <canvas
+            baseChart
+            [data]="getAccidentChartData(stats)"
+            type="bar"
+        ></canvas>
+    </div>
+</div>
+
+}

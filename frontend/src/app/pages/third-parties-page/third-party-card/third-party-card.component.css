@@ -1,0 +1,106 @@
+:host {
+    width: 346px;
+    height: 220px;
+    box-sizing: border-box;
+    padding: 16px;
+    border-radius: 24px;
+    background-color: #0a212f1f;
+    display: flex;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+input {
+    padding: 8px;
+    border: none;
+    border-radius: 16px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[name="lastName"],
+input[name="firstName"] {
+    background-color: #ff4c4d;
+}
+
+.birth-date-block {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+input[name="birthDate"] {
+    background-color: #09c9c2;
+    padding: 6px;
+}
+
+.address-block {
+    grid-column: span 2;
+}
+
+.address-block input {
+    background-color: #ff892f;
+    text-align: left;
+}
+
+input[name="address"] {
+    border-radius: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding-bottom: 4px;
+}
+
+input[name="postalCode"] {
+    border-radius: 0;
+    border-bottom-left-radius: 16px;
+    padding-right: 0;
+    max-width: 64px;
+}
+
+input[name="address"],
+input[name="postalCode"] {
+    padding-left: 16px;
+}
+
+input[name="city"] {
+    border-radius: 0;
+    border-bottom-right-radius: 16px;
+}
+
+input[name="postalCode"],
+input[name="city"] {
+    padding-top: 4px;
+}
+
+input:focus-visible {
+    border: 1px solid black;
+    outline: none;
+}
+
+.postal-code-city {
+    display: flex;
+}
+
+.actions {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.actions button {
+    display: flex;
+    background: none;
+    border: none;
+}
+
+.actions button img {
+    width: 20px;
+}

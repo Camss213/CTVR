@@ -1,0 +1,31 @@
+h2 {
+    margin: 0.5em;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 0;
+}
+
+button {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    padding: 8px 16px;
+}
+
+button:hover {
+    background-color: #00000024;
+}
+
+li span {
+    padding: 4px 8px;
+    border-radius: 8px;
+}

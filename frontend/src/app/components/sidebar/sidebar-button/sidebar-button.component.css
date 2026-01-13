@@ -1,0 +1,61 @@
+li {
+    border-radius: 16px;
+    transition: 0.3s;
+}
+
+a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: inherit;
+    white-space: nowrap;
+}
+
+.navElement {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+li:hover {
+    background: #eeeeee;
+}
+
+li.active {
+    background: #242424;
+    color: white;
+    cursor: default;
+}
+
+li img {
+    width: 24px;
+}
+
+li.active img {
+    filter: invert(1);
+}
+
+.arrowIcon {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: transform 0.3s;
+}
+
+li:hover .arrowIcon,
+li.active .arrowIcon {
+    opacity: 100%;
+    visibility: visible;
+    transform: translateX(0px);
+}
+
+@media (min-width: 968px) {
+    li.active {
+        transform: translateX(50px);
+    }
+
+    li:hover {
+        transform: translateX(50px);
+    }
+}

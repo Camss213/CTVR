@@ -1,0 +1,49 @@
+<div>
+    <h1>Informations du compte</h1>
+    <form [formGroup]="usernameForm" (ngSubmit)="onUsernameSubmit()">
+        <label for="user-name">Nom d'utilisateur</label>
+        <input
+            type="text"
+            id="user-name"
+            formControlName="username"
+            required
+            [placeholder]="username"
+        />
+        <button type="submit" [disabled]="usernameForm.invalid">
+            <img src="/images/icons/edit.svg" alt="Modifier" title="modifier" />
+            Modifier
+        </button>
+    </form>
+
+    <form
+        [formGroup]="passwordForm"
+        (ngSubmit)="onPasswordSubmit()"
+        [class.password-mismatch]="passwordsMismatch"
+    >
+        <label for="old-pwd">Ancien mot de passe</label>
+        <input
+            type="password"
+            id="old-pwd"
+            formControlName="oldPassword"
+            required
+        />
+        <label for="new-pwd">Nouveau mot de passe</label>
+        <input
+            type="password"
+            id="new-pwd"
+            formControlName="password"
+            required
+        />
+        <label for="confirm-pwd">Confirmer le mot de passe</label>
+        <input
+            type="password"
+            id="confirm-pwd"
+            formControlName="newPasswordConfirm"
+            required
+        />
+        <button type="submit" [disabled]="passwordForm.invalid">
+            <img src="/images/icons/edit.svg" alt="Modifier" title="modifier" />
+            Modifier
+        </button>
+    </form>
+</div>

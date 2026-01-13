@@ -1,0 +1,50 @@
+<ul>
+    <li class="title">Liste des arrêts</li>
+    @if (stops$ | async; as stops) {
+    <li [class.selected]="selected.oldName === ''">
+        <button class="new-button" type="button" (click)="new()">
+            Créer un nouvel arrêt
+        </button>
+    </li>
+    @for (stop of stops; track stop) {
+    <li [class.selected]="stop.name === selected.oldName">
+        <button type="button" (click)="select(stop)">
+            {{ stop.name }}
+        </button>
+    </li>
+    } } @else {
+    <li>Chargement...</li>
+    }
+</ul>
+<div class="background" [class.opened]="opened" (click)="opened = false">
+    <form (ngSubmit)="save()" (click)="$event.stopPropagation()">
+        <button type="button" (click)="opened = false" class="close-button">
+            <img src="/images/icons/close.svg" alt="Fermer" />
+        </button>
+
+        <input
+            class="line-name"
+            type="text"
+            [(ngModel)]="selected.name"
+            name="name"
+            placeholder="Nom"
+        />
+
+        <div class="lines">
+            @for (line of selected.lines; track line) {
+            <div [style.background-color]="line.color">{{ line.number }}</div>
+            }
+        </div>
+
+        <img src="/images/map.svg" alt="map" class="map" />
+        <div class="actions">
+            @if (selected.oldName !== '') {
+            <button type="button" (click)="delete()">
+                <img src="/images/icons/delete.svg" alt="Supprimer" /></button
+            >}
+            <button type="submit">
+                <img src="/images/icons/save.svg" alt="Enregistrer" />
+            </button>
+        </div>
+    </form>
+</div>

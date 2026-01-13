@@ -1,0 +1,45 @@
+<a class="card" routerLink="/interventions/{{ intervention.id }}">
+    <div class="header">
+        <div>N°{{ intervention.id }}</div>
+        @if ( intervention.accidentYear && intervention.accidentNoSeq ) {
+        <div>
+            {{ intervention.accidentYear }}#{{ intervention.accidentNoSeq }}
+        </div>
+        }
+        <div>
+            {{ intervention.busNumber }} - {{ intervention.busRegistration }}
+        </div>
+    </div>
+    <p class="content">
+        {{ intervention.description }}
+    </p>
+    <div class="dates">
+        @if (intervention.busEntranceDate) {
+        <p>
+            Entrée du bus :
+            <span>{{ getLocalDate(intervention.busEntranceDate) }}</span>
+        </p>
+        } @if (intervention.startRepairDate) {
+        <p>
+            Début :
+            <span>{{ getLocalDate(intervention.startRepairDate) }}</span>
+        </p>
+        } @if (intervention.endRepairDate) {
+        <p>
+            Fin :
+            <span>{{ getLocalDate(intervention.endRepairDate) }}</span>
+        </p>
+        }
+    </div>
+    <a
+        class="quote"
+        routerLink="/interventions/{{ intervention.id }}/quote"
+        (click)="$event.stopPropagation()"
+    >
+        <img src="/images/icons/doc.svg" alt="Devis" />
+        <span>Voir le devis</span>
+    </a>
+    <button class="delete-button" type="button" (click)="remove($event)">
+        <img src="/images/icons/delete.svg" alt="Supprimer" />
+    </button>
+</a>

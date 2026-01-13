@@ -1,0 +1,270 @@
+:host {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    height: 100%;
+    margin-left: 16px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    max-height: calc(100vh - 40px);
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    font-size: larger;
+    background-color: #09c9c2;
+    border-radius: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.line-list {
+    padding: 16px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #d9d9d9;
+}
+
+.line-list button {
+    background: none;
+    display: flex;
+    padding: 0;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.line-list button:not(.selected) {
+    border: none;
+}
+
+.line-list button div {
+    font-size: 18px;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+}
+
+.line-list .number {
+    min-width: 40px;
+    padding: 4px 8px;
+    justify-content: center;
+}
+
+.line-list .stops {
+    text-align: left;
+    background-color: #c0bebe;
+    flex-grow: 1;
+    padding: 4px 16px;
+}
+
+.line-list li:last-child button {
+    margin-bottom: 0;
+}
+
+.line-list .new {
+    background-color: #f58748;
+    border-radius: 100px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.selected {
+    border: 2px solid #0a212f;
+}
+
+form {
+    background-color: #d9d9d9;
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    min-height: 336px;
+    max-height: calc(100vh - 64px);
+    overflow: auto;
+}
+
+.stop-list {
+    position: relative;
+    flex-grow: 1;
+    padding-left: 0;
+    margin-right: 32px;
+}
+
+.stop-list::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    bottom: 4px;
+    border-radius: 15px;
+    width: 4px;
+    background-color: #f58748;
+}
+
+.stop-list li {
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 8px;
+}
+
+.stop-list li svg .main-color {
+    fill: #ff4c4d;
+}
+
+.stop-list li:first-child svg .main-color,
+.stop-list li:nth-last-child(2) svg .main-color {
+    fill: #0d6c98;
+}
+
+.stop-list li:last-child svg .main-color {
+    fill: #959393;
+}
+
+.stop-name {
+    flex: 1;
+}
+
+.stop-list button {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+}
+
+.stop-list button img {
+    width: 16px;
+    height: 16px;
+}
+
+.stop-list .new-button {
+    background-color: #f58748;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-weight: 600;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.number-input {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+    text-align: center;
+    border-radius: 20px;
+    -moz-appearance: textfield;
+    appearance: auto;
+    border: none;
+    outline: 2px solid #b0b0b0;
+}
+
+.number-input:focus {
+    outline: 2px solid #f58748;
+}
+
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.stops-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    font-size: 18px;
+    background-color: #ff4c4d;
+}
+
+.stops-number span {
+    font-size: 40px;
+}
+
+.actions {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+
+.actions button {
+    background: none;
+    border: none;
+    display: flex;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.actions img {
+    width: 20px;
+    height: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: none;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.close-button img {
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    .background {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        background-color: #00000040;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .background:not(.opened) {
+        display: none;
+    }
+
+    .close-button {
+        display: flex;
+    }
+}

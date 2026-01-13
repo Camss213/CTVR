@@ -1,0 +1,12 @@
+<dialog #dialog>
+    <h2>Choisir un bus</h2>
+    <ul>
+        @if (buses$ | async; as buses) { @for (bus of buses; track bus) {
+        <li>
+            <button (click)="select(bus)">
+                {{ bus.number + " - " + bus.registration }}
+            </button>
+        </li>
+        } }
+    </ul>
+</dialog>

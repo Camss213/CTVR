@@ -1,0 +1,28 @@
+<dialog #dialog>
+    <h2>Validation de l'assurance</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <app-field
+            type="number"
+            label="Somme reçue"
+            formControlName="moneyReceived"
+            id="moneyReceived"
+            [required]="true"
+        />
+        @for (involve of form.controls.involves.controls; track involve) {
+        <fieldset [formGroup]="involve">
+            <legend>
+                # {{ involve.value.thirdPartyId }} -
+                {{ involve.value.thirdPartyName }}
+            </legend>
+            <app-field
+                type="number"
+                label="Somme versée"
+                formControlName="amountPaid"
+                id="amountPaid"
+                [required]="true"
+            />
+        </fieldset>
+        }
+        <button type="submit">Valider</button>
+    </form>
+</dialog>

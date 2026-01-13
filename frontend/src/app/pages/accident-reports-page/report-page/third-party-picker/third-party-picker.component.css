@@ -1,0 +1,26 @@
+h2 {
+    margin: 0.5em;
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+}
+
+button {
+    display: block;
+    background-color: #0b577a;
+    color: white;
+    font-size: 18px;
+    padding: 8px 20px;
+    border: 1px solid #0b577a;
+    border-radius: 10px;
+    margin: auto;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background: none;
+    color: #0b577a;
+}

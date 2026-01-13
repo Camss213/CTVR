@@ -1,0 +1,16 @@
+<dialog #dialog>
+    <h2>Choisir un accident</h2>
+    <ul>
+        @if (accidentIds$ | async; as accidentIds) {
+        <li>
+            <button (click)="select(null)">Aucun</button>
+        </li>
+        @for (id of accidentIds; track id) {
+        <li>
+            <button (click)="select(id)">
+                {{ id.year + "#" + id.noSeq }}
+            </button>
+        </li>
+        } }
+    </ul>
+</dialog>

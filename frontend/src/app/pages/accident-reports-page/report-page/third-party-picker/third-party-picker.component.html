@@ -1,0 +1,77 @@
+<dialog #dialog (close)="onClose()">
+    <h2>Choisir un tiers</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="row">
+            <app-field
+                type="text"
+                label="Prénom"
+                list="firstNames"
+                formControlName="firstName"
+                id="firstName"
+                (input)="onFirstNameInput($event)"
+                [required]="true"
+            />
+            <app-field
+                type="text"
+                label="Nom"
+                list="lastNames"
+                formControlName="lastName"
+                id="lastName"
+                (input)="onLastNameInput($event)"
+                [required]="true"
+            />
+
+            @if (thirdParties) {
+            <datalist id="firstNames">
+                @for (thirdParty of thirdParties; track thirdParty) {
+                <option [value]="thirdParty.firstName">
+                    {{ thirdParty.firstName + " " + thirdParty.lastName }}
+                </option>
+                }
+            </datalist>
+            <datalist id="lastNames">
+                @for (thirdParty of thirdParties; track thirdParty) {
+                <option [value]="thirdParty.lastName">
+                    {{ thirdParty.firstName + " " + thirdParty.lastName }}
+                </option>
+                }
+            </datalist>
+            }
+        </div>
+        <app-field
+            type="date"
+            label="Date de naissance"
+            formControlName="birthDate"
+            id="birthDate"
+            [required]="true"
+        />
+        <app-field
+            type="text"
+            label="Adresse"
+            formControlName="address"
+            id="address"
+            [required]="true"
+        />
+        <div class="row">
+            <app-field
+                type="text"
+                formControlName="postalCode"
+                id="postalCode"
+                label="Code Postal"
+                pattern="[0-9]+"
+                [maxLength]="5"
+                [required]="true"
+            />
+            <app-field
+                type="text"
+                label="Ville"
+                formControlName="city"
+                id="city"
+                [required]="true"
+            />
+        </div>
+        <button type="submit">
+            {{ form.controls.id.value === null ? "Créer" : "Sélectionner" }}
+        </button>
+    </form>
+</dialog>

@@ -1,0 +1,69 @@
+<h1>Gestion des comptes utilisateurs</h1>
+<table>
+    <thead>
+        <tr>
+            <th><div>Conducteur</div></th>
+            <th><div>Nom d'utilisateur</div></th>
+            <th><div>Rôle</div></th>
+            <th class="header-with-button">
+                <div>
+                    Action
+                    <button class="add-button" (click)="add()">
+                        <img src="/images/icons/add.svg" alt="Ajouter" />
+                    </button>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (users) { @for (user of users; track user) {
+        <tr>
+            <td>
+                @if (user.role === "DRIVER") {
+                <button
+                    type="button"
+                    (click)="driverPicker.show(); selectedUser = user"
+                >
+                    {{
+                        user.driverName
+                            ? user.driverName
+                            : "Sélectionner un conducteur"
+                    }}
+                </button>
+                }
+            </td>
+            <td>
+                <input
+                    type="text"
+                    [(ngModel)]="user.username"
+                    placeholder="Nom d'utilisateur"
+                />
+            </td>
+            <td>
+                <select [(ngModel)]="user.role">
+                    <option value="ADMIN">Admin</option>
+                    <option value="S_ADMIN">Service administratif</option>
+                    <option value="S_TECH">Service technique</option>
+                    <option value="DRIVER">Conducteur</option>
+                </select>
+            </td>
+            <td class="action-cell">
+                @if (user.id) {
+                <button (click)="delete(user.id)">
+                    <img src="/images/icons/delete.svg" alt="Supprimer" />
+                </button>
+                }
+                <button (click)="save(user)">
+                    <img src="/images/icons/save.svg" alt="Envoyer" />
+                </button>
+            </td>
+        </tr>
+        } } @else {
+        <tr>
+            <td colspan="4">Chargement ...</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<app-driver-picker #driverPicker (selected)="changeDriver($event)" />

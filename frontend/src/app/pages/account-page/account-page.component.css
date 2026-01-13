@@ -1,0 +1,61 @@
+:host {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div {
+    background-color: #e7e4e4;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+}
+
+h1 {
+    background-color: #09c9c2;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 8px 16px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff892f;
+    margin: 8px 0px;
+}
+
+img {
+    width: 20px;
+    height: 20px;
+}
+
+input {
+    background-color: #d0d0d2;
+    border: none;
+    border-radius: 16px;
+    height: 2em;
+    margin: 4px 0 16px;
+    padding: 0 16px;
+}
+
+.password-mismatch #new-pwd,
+.password-mismatch #confirm-pwd {
+    border: 1px solid red;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}

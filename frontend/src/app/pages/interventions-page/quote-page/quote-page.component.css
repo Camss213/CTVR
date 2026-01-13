@@ -1,0 +1,262 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #e7e4e4;
+    border-radius: 10px;
+    padding: 32px;
+    max-width: 800px;
+    min-height: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    gap: 16px;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.first-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.logo img {
+    height: 64px;
+}
+
+.title {
+    text-align: center;
+}
+
+.title h1 {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.title input {
+    border: none;
+    background: none;
+    text-align: center;
+    position: relative;
+    width: 130px;
+}
+
+.title input:not(:focus-within):not(:hover)::-webkit-inner-spin-button,
+.title input:not(:focus-within):not(:hover)::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.title input::-webkit-inner-spin-button,
+.title input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+}
+
+.pickers {
+    display: flex;
+    justify-content: space-around;
+}
+
+.add-button {
+    display: block;
+    background-color: #0b577a;
+    color: white;
+    margin: 0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 8px;
+    width: 100%;
+}
+
+.content table {
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border: #000000 1px solid;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.content thead th {
+    white-space: nowrap;
+    padding: 1px 5px;
+}
+
+.content thead th:nth-child(2) {
+    width: 99%;
+}
+
+.content thead th:not(:last-child) {
+    border-right: #000000 1px solid;
+}
+
+.content td {
+    border-top: #000000 1px solid;
+    padding: 0;
+}
+
+.content tbody td:not(:last-child) {
+    border-right: #000000 1px solid;
+}
+
+.content select {
+    padding: 2px 4px;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-sizing: border-box;
+}
+
+.content td:not(:has(*)),
+.quantity-value {
+    padding: 2px 4px;
+}
+
+.quantity-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-value {
+    min-width: 32px;
+    text-align: center;
+}
+
+.quantity-button,
+#add-row-button {
+    background: none;
+    border: none;
+    display: flex;
+}
+
+.quantity-button img,
+#add-row-button img {
+    width: 16px;
+}
+
+.datalist {
+    display: flex;
+    position: absolute;
+    padding: 12px;
+    margin: 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    list-style: none;
+    left: 0;
+}
+
+.datalist button {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
+
+.footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.footer table {
+    border-spacing: 0;
+    border: #000000 1px solid;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.footer th,
+.footer td {
+    padding: 2px 5px;
+}
+
+.footer th {
+    text-align: left;
+}
+
+.footer td {
+    border-left: #000000 1px solid;
+}
+
+.footer tr:not(:last-child) td,
+.footer tr:not(:last-child) th {
+    border-bottom: #000000 1px solid;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#signature {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+#signature-input {
+    display: flex;
+    height: 64px;
+    width: 32%;
+    background-color: #0a212f33;
+    border-radius: 8px;
+    border: 1px dashed #0a212f66;
+}
+
+.bottom {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    width: 100%;
+    align-items: center;
+}
+
+.last-row {
+    text-align: center;
+    margin: 0;
+}
+
+.bottom .buttons {
+    display: flex;
+    justify-self: end;
+}
+
+.bottom button {
+    background: none;
+    border: none;
+    display: flex;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.bottom img {
+    height: 20px;
+    width: 20px;
+}

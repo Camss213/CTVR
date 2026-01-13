@@ -1,0 +1,220 @@
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th><div>Prénom</div></th>
+                <th><div>Nom</div></th>
+                <th><div>Téléphone</div></th>
+                <th><div>Email</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (drivers$ | async; as drivers) {
+            <tr
+                (click)="newDriver()"
+                [class.selected]="
+                    form.controls.drivingLicenceNumber.value === ''
+                "
+            >
+                <td class="add-button" colspan="4">
+                    Ajouter un nouveau conducteur
+                </td>
+            </tr>
+            @for (driver of drivers; track driver) {
+            <tr
+                (click)="onSelect(driver)"
+                [class.selected]="
+                    form.controls.oldDrivingLicenceNumber.value ===
+                    driver.drivingLicenceNumber
+                "
+            >
+                <td>{{ driver.firstName }}</td>
+                <td>{{ driver.lastName }}</td>
+                <td>{{ driver.phoneNumber }}</td>
+                <td>{{ driver.email }}</td>
+            </tr>
+            } } @else {
+            <tr>
+                <td colspan="4">Chargement des conducteurs en cours...</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>
+<div class="background" [class.opened]="opened" (click)="opened = false">
+    <form
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        (click)="$event.stopPropagation()"
+    >
+        <button class="close-button" type="button" (click)="opened = false">
+            <img src="/images/icons/close.svg" alt="Cross Icon" />
+        </button>
+        <img src="/images/driverIllustration.png" alt="Conducteur" />
+        <div class="name-line">
+            <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                formControlName="firstName"
+                placeholder="Prénom"
+                required
+            />
+
+            <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                formControlName="lastName"
+                placeholder="Nom"
+                required
+            />
+        </div>
+
+        <fieldset class="personnal-infos">
+            <div class="input-container">
+                <img src="/images/icons/cake.svg" alt="Gateau d'anniversaire" />
+                <input
+                    type="date"
+                    id="birthday"
+                    class="max-width"
+                    name="birthday"
+                    formControlName="birthday"
+                    required
+                />
+            </div>
+
+            <div class="input-container">
+                <img src="/images/icons/phone.svg" alt="Phone Icon" />
+                <input
+                    type="tel"
+                    id="phoneNumber"
+                    class="max-width"
+                    name="phoneNumber"
+                    formControlName="phoneNumber"
+                    placeholder="Téléphone"
+                    required
+                    minlength="10"
+                    maxlength="10"
+                />
+            </div>
+
+            <div class="input-container">
+                <img src="/images/icons/email.svg" alt="Email Icon" />
+                <input
+                    type="email"
+                    id="email"
+                    class="max-width"
+                    name="email"
+                    formControlName="email"
+                    placeholder="Adresse email"
+                    required
+                />
+            </div>
+
+            <div class="input-container address-block">
+                <img src="/images/icons/home.svg" alt="Home Icon" />
+                <div class="address-infos">
+                    <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        formControlName="address"
+                        placeholder="Adresse"
+                        required
+                    />
+
+                    <div class="line">
+                        <input
+                            type="text"
+                            id="postalCode"
+                            name="postalCode"
+                            formControlName="postalCode"
+                            placeholder="Code postal"
+                            pattern="[0-9]+"
+                            maxlength="5"
+                            required
+                        />
+
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            formControlName="city"
+                            placeholder="Ville"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="driving-licence">
+            <legend>Permis de conduire</legend>
+            <div class="driving-licence-block">
+                <img src="/images/drivingLicenceIllustration.png" alt="" />
+                <div class="driving-licence-infos">
+                    <div class="input-column">
+                        <label for="drivingLicenceNumber">Numéro :</label>
+                        <input
+                            type="text"
+                            id="drivingLicenceNumber"
+                            name="drivingLicenceNumber"
+                            formControlName="drivingLicenceNumber"
+                            placeholder="0123456789101112"
+                            required
+                        />
+                    </div>
+                    <div class="input-column">
+                        <label for="drivingLicenceDate"
+                            >Date de délivrance :</label
+                        >
+                        <input
+                            type="date"
+                            id="drivingLicenceDate"
+                            name="drivingLicenceDate"
+                            formControlName="drivingLicenceDate"
+                            placeholder="Date de délivrance"
+                            required
+                        />
+                    </div>
+
+                    <div class="input-column">
+                        <label for="drivingLicenceIssueCity"
+                            >Lieu de délivrance :</label
+                        >
+                        <input
+                            type="text"
+                            id="drivingLicenceIssueCity"
+                            name="drivingLicenceIssueCity"
+                            formControlName="drivingLicenceIssueCity"
+                            placeholder="Ville"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="input-container">
+            <label for="takingOfficeDate">Date de prise de fonction :</label>
+            <input
+                type="date"
+                id="takingOfficeDate"
+                name="takingOfficeDate"
+                formControlName="takingOfficeDate"
+                placeholder="Date de prise de fonction"
+                required
+            />
+        </div>
+
+        <div class="actions">
+            @if (form.controls.oldDrivingLicenceNumber.value !== '') {
+            <button type="button" (click)="onDelete()">
+                <img src="/images/icons/delete.svg" alt="Supprimer" /></button
+            >}
+            <button type="submit">
+                <img src="/images/icons/save.svg" alt="Enregistrer" />
+            </button>
+        </div>
+    </form>
+</div>

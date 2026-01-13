@@ -1,0 +1,10 @@
+<dialog #dialog>
+    <h2>Choisir un ligne</h2>
+    <div class="grid">
+        @if (lines$ | async; as lines) { @for (line of lines; track line) {
+        <button (click)="select(line)" [style.background-color]="line.color">
+            {{ line.number }}
+        </button>
+        } }
+    </div>
+</dialog>

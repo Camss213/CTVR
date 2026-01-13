@@ -1,0 +1,131 @@
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+:host {
+    width: 346px;
+    height: 220px;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 24px;
+    background-color: #0a212f1f;
+    display: flex;
+}
+
+.actions {
+    justify-content: flex-end;
+    display: flex;
+}
+
+.actions button {
+    background: none;
+    border: none;
+    display: flex;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.actions img {
+    width: 20px;
+    height: 20px;
+}
+
+input {
+    border: none;
+}
+
+/* =================== card-header =================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+select {
+    border: none;
+    background-color: #89da53;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.number {
+    display: flex;
+    white-space: nowrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.number-bus {
+    width: 2em;
+    height: 2em;
+    border-radius: 25px;
+    background-color: #ff892f;
+    text-align: center;
+}
+
+/* =================== card-body =================== */
+
+.body {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+input::placeholder {
+    color: #0a212f99;
+}
+
+label {
+    text-align: center;
+    width: min-content;
+}
+
+.model {
+    flex-grow: 1;
+}
+
+.body input {
+    width: 100%;
+    height: 2.7em;
+    padding: 0;
+    border-radius: 25px;
+    background-color: #ff892f;
+    text-align: center;
+}
+
+.registration {
+    flex-shrink: 0;
+    width: 8em;
+}
+
+/* =================== card-footer =================== */
+.footer {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.date {
+    border-radius: 25px;
+    background-color: #09c9c2;
+    text-align: center;
+    padding: 4px;
+    padding-right: 0.5em;
+}
+
+/* =================== imput-number =================== */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}

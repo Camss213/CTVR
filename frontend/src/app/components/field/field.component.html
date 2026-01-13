@@ -1,0 +1,38 @@
+<label [for]="id">{{ label }}</label>
+@if (type === 'textarea') {
+<textarea
+    [required]="required"
+    (input)="onInputChange($event)"
+    [disabled]="isDisabled"
+    [attr.minLength]="minLength"
+    [attr.maxLength]="maxLength"
+    [id]="id"
+    >{{ value }}</textarea
+>
+} @else if (type === "select") {
+<select
+    [required]="required"
+    [value]="value"
+    (input)="onInputChange($event)"
+    [disabled]="isDisabled"
+    [attr.pattern]="pattern"
+    [attr.minLength]="minLength"
+    [attr.maxLength]="maxLength"
+>
+    @for (option of options; track $index) {
+    <option [value]="option.value">{{ option.label }}</option>
+    }
+</select>
+} @else {
+<input
+    [type]="type"
+    [required]="required"
+    [value]="value"
+    (input)="onInputChange($event)"
+    [disabled]="isDisabled"
+    [attr.pattern]="pattern"
+    [attr.minLength]="minLength"
+    [attr.maxLength]="maxLength"
+    [attr.list]="list"
+/>
+}
